@@ -1,8 +1,9 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize('scaler', 'adil', 'root', {
     host: '127.0.0.1',
+    logging: false,
     dialect: 'mysql' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
 });
 
@@ -17,8 +18,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.contact = require('./contact')(sequelize, DataTypes);
-db.user = require('./user')(sequelize, DataTypes);
+db.contact = require('./contact')(sequelize, DataTypes, Model);
+db.user = require('./user')(sequelize, DataTypes, Model);
 
 db.sequelize.sync({ force: true });
 
