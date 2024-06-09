@@ -1,4 +1,5 @@
 const db = require('../model');
+const { Op } = require('sequelize')
 
 const User = db.user;
 
@@ -20,14 +21,18 @@ const createUser = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-    const data = await User.findAll({});
+    const data = await User.findAll({
+        attributes: ['firstName']
+    });
     res.status(200).json({ data });
 }
 
 const getUser = async (req, res) => {
     const data = await User.findOne({
         where: {
-            id: req.params.id
+            id: {
+                [Op.eq]: req.params.id
+            }
         }
     });
     res.status(200).json({ data });
@@ -43,4 +48,19 @@ const updateUser = async (req, res) => {
     res.status(200).json({ data });
 }
 
-module.exports = { addUser, getUsers, getUser, createUser, updateUser }
+const queryUser = async (req, res) => {
+    const data = await User.findAll({
+        attributes: ['id', 'firstName', 'lastName'],
+
+    });
+    res.status(200).json({ data });
+}
+
+module.exports = {
+    addUser,
+    getUsers,
+    getUser,
+    createUser,
+    updateUser,
+    queryUser
+}
