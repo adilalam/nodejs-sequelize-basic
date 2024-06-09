@@ -51,7 +51,7 @@ app.get("/add", userControl.addUser)
  *      description: Get All users
  *      responses:
  *          200:
- *              description: This is a list of product in catlog
+ *              description: This is a list of users
  *              content:
  *                  application/json:
  *                      schema:
